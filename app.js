@@ -74,10 +74,10 @@ function getEmptyMessage() {
   }
 
   if (currentFilter === "active") {
-    return "太棒了！目前沒有未完成的事項。";
+    return "太棒了！目前沒有未完成的事項，其他項目仍保留在清單中。";
   }
 
-  return "目前沒有已完成的事項。";
+  return "目前沒有已完成的事項，其他項目仍保留在清單中。";
 }
 
 function updateFilterButtons() {
