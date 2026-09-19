@@ -8,12 +8,12 @@ const remainingCount = document.querySelector("#remaining-count");
 const themeToggle = document.querySelector("#theme-toggle");
 const themeIcon = document.querySelector(".theme-icon");
 const themeLabel = document.querySelector(".theme-label");
+const THEME_STORAGE_KEY = "todo-list-theme";
+const FILTER_STORAGE_KEY = "todo-list-filter";
 const filterButtons = document.querySelectorAll(".filter-button");
 
 let todos = loadTodos();
-let currentFilter = "all";
-
-const THEME_STORAGE_KEY = "todo-list-theme";
+let currentFilter = loadFilter();
 
 // 從瀏覽器儲存空間讀取資料，若資料損壞則回到空清單。
 function loadTodos() {
@@ -51,6 +51,11 @@ function loadTheme() {
   return savedTheme === "light" || savedTheme === "dark" ? savedTheme : null;
 }
 
+function loadFilter() {
+  const savedFilter = localStorage.getItem(FILTER_STORAGE_KEY);
+  return ["all", "active", "completed"].includes(savedFilter) ? savedFilter : "all";
+}
+
 function getVisibleTodos() {
   if (currentFilter === "active") {
     return todos.filter((todo) => !todo.completed);
@@ -73,6 +78,14 @@ function getEmptyMessage() {
   }
 
   return "目前沒有已完成的事項。";
+}
+
+function updateFilterButtons() {
+  filterButtons.forEach((filterButton) => {
+    const isActive = filterButton.dataset.filter === currentFilter;
+    filterButton.classList.toggle("active", isActive);
+    filterButton.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 function renderTodos() {
@@ -152,11 +165,8 @@ themeToggle.addEventListener("click", () => {
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     currentFilter = button.dataset.filter;
-    filterButtons.forEach((filterButton) => {
-      const isActive = filterButton === button;
-      filterButton.classList.toggle("active", isActive);
-      filterButton.setAttribute("aria-pressed", String(isActive));
-    });
+    localStorage.setItem(FILTER_STORAGE_KEY, currentFilter);
+    updateFilterButtons();
     renderTodos();
   });
 });
@@ -169,4 +179,5 @@ systemTheme.addEventListener("change", () => {
 });
 
 applyTheme(loadTheme());
+updateFilterButtons();
 renderTodos();
