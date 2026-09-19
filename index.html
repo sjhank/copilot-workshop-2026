@@ -9,8 +9,16 @@
 <body>
   <main class="todo-card">
     <header class="todo-header">
-      <p class="eyebrow">今日小任務</p>
-      <h1>待辦清單</h1>
+      <div class="title-row">
+        <div>
+          <p class="eyebrow">今日小任務</p>
+          <h1>待辦清單</h1>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true">🌙</span>
+          <span class="theme-label">深色模式</span>
+        </button>
+      </div>
       <p class="subtitle">把想完成的事，一項一項收進清單裡。</p>
     </header>
 
@@ -27,9 +35,15 @@
       <button type="submit">新增</button>
     </form>
 
+    <nav class="filter-tabs" aria-label="待辦事項篩選">
+      <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">全部</button>
+      <button class="filter-button" type="button" data-filter="active" aria-pressed="false">未完成</button>
+      <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">已完成</button>
+    </nav>
+
     <section aria-live="polite" aria-label="待辦事項清單">
       <ul class="todo-list" id="todo-list"></ul>
-      <p class="empty-state" id="empty-state">還沒有任何待辦事項，新增一個吧!</p>
+      <p class="empty-state" id="empty-state">還沒有任何待辦事項，新增一個吧！</p>
     </section>
 
     <footer class="todo-footer">
