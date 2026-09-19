@@ -261,11 +261,35 @@ h1 {
 }
 
 .todo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin-top: 24px;
   padding-top: 18px;
   color: var(--text-secondary);
   border-top: 1px solid var(--border);
   font-size: 0.92rem;
+}
+
+.clear-completed-button {
+  padding: 7px 10px;
+  color: var(--danger);
+  background: transparent;
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  font-size: 0.82rem;
+}
+
+.clear-completed-button:hover:not(:disabled),
+.clear-completed-button:focus-visible:not(:disabled) {
+  color: var(--card-background);
+  background: var(--danger);
+}
+
+.clear-completed-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 
 .sr-only {
